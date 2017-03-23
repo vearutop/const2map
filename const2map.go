@@ -80,7 +80,7 @@ import (
 
 var (
 	typeNames = flag.String("type", "", "comma-separated list of type names; must be set")
-	output    = flag.String("output", "", "output file name; default srcdir/<type>_string.go")
+	output    = flag.String("output", "", "output file name; default srcdir/<type>_c2m_gen.go")
 )
 
 // Usage is a replacement usage function for the flags package.
