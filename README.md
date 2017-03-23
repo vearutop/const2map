@@ -35,7 +35,7 @@ const (
 
 After running `go generate` you will get `day_c2m_gen.go`
 
-```
+```go
 const _Day_name = "MondayTuesdayWednesdayThursdayFridaySaturdaySunday"
 
 var _Day_map = map[Day]string{
