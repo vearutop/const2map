@@ -11,7 +11,7 @@ The purpose is to workaround missing reflection capabilities to access constants
 ## Installation
 
 ```
-go get github.com/vearutop/go-const2map
+go get github.com/vearutop/const2map
 ```
 
 ## Usage
