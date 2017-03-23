@@ -48,13 +48,18 @@ const (
 const day_out = `
 const _Day_name = "MondayTuesdayWednesdayThursdayFridaySaturdaySunday"
 
-var _Day_index = [...]uint8{0, 6, 13, 22, 30, 36, 44, 50}
+var _Day_map = map[Day]string{
+	0: _Day_name[0:6],
+	1: _Day_name[6:13],
+	2: _Day_name[13:22],
+	3: _Day_name[22:30],
+	4: _Day_name[30:36],
+	5: _Day_name[36:44],
+	6: _Day_name[44:50],
+}
 
-func (i Day) String() string {
-	if i < 0 || i >= Day(len(_Day_index)-1) {
-		return fmt.Sprintf("Day(%d)", i)
-	}
-	return _Day_name[_Day_index[i]:_Day_index[i+1]]
+func (i Day) GetMap() map[Day]string {
+	return _Day_map
 }
 `
 
@@ -73,14 +78,14 @@ const (
 const offset_out = `
 const _Number_name = "OneTwoThree"
 
-var _Number_index = [...]uint8{0, 3, 6, 11}
+var _Number_map = map[Number]string{
+	1: _Number_name[0:3],
+	2: _Number_name[3:6],
+	3: _Number_name[6:11],
+}
 
-func (i Number) String() string {
-	i -= 1
-	if i < 0 || i >= Number(len(_Number_index)-1) {
-		return fmt.Sprintf("Number(%d)", i+1)
-	}
-	return _Number_name[_Number_index[i]:_Number_index[i+1]]
+func (i Number) GetMap() map[Number]string {
+	return _Number_map
 }
 `
 
@@ -99,31 +104,21 @@ const (
 `
 
 const gap_out = `
-const (
-	_Gap_name_0 = "TwoThree"
-	_Gap_name_1 = "FiveSixSevenEightNine"
-	_Gap_name_2 = "Eleven"
-)
+const _Gap_name = "TwoThreeFiveSixSevenEightNineEleven"
 
-var (
-	_Gap_index_0 = [...]uint8{0, 3, 8}
-	_Gap_index_1 = [...]uint8{0, 4, 7, 12, 17, 21}
-	_Gap_index_2 = [...]uint8{0, 6}
-)
+var _Gap_map = map[Gap]string{
+	2:  _Gap_name[0:3],
+	3:  _Gap_name[3:8],
+	5:  _Gap_name[8:12],
+	6:  _Gap_name[12:15],
+	7:  _Gap_name[15:20],
+	8:  _Gap_name[20:25],
+	9:  _Gap_name[25:29],
+	11: _Gap_name[29:35],
+}
 
-func (i Gap) String() string {
-	switch {
-	case 2 <= i && i <= 3:
-		i -= 2
-		return _Gap_name_0[_Gap_index_0[i]:_Gap_index_0[i+1]]
-	case 5 <= i && i <= 9:
-		i -= 5
-		return _Gap_name_1[_Gap_index_1[i]:_Gap_index_1[i+1]]
-	case i == 11:
-		return _Gap_name_2
-	default:
-		return fmt.Sprintf("Gap(%d)", i)
-	}
+func (i Gap) GetMap() map[Gap]string {
+	return _Gap_map
 }
 `
 
@@ -141,14 +136,16 @@ const (
 const num_out = `
 const _Num_name = "m_2m_1m0m1m2"
 
-var _Num_index = [...]uint8{0, 3, 6, 8, 10, 12}
+var _Num_map = map[Num]string{
+	-2: _Num_name[0:3],
+	-1: _Num_name[3:6],
+	0:  _Num_name[6:8],
+	1:  _Num_name[8:10],
+	2:  _Num_name[10:12],
+}
 
-func (i Num) String() string {
-	i -= -2
-	if i < 0 || i >= Num(len(_Num_index)-1) {
-		return fmt.Sprintf("Num(%d)", i+-2)
-	}
-	return _Num_name[_Num_index[i]:_Num_index[i+1]]
+func (i Num) GetMap() map[Num]string {
+	return _Num_map
 }
 `
 
@@ -167,26 +164,18 @@ const (
 `
 
 const unum_out = `
-const (
-	_Unum_name_0 = "m0m1m2"
-	_Unum_name_1 = "m_2m_1"
-)
+const _Unum_name = "m0m1m2m_2m_1"
 
-var (
-	_Unum_index_0 = [...]uint8{0, 2, 4, 6}
-	_Unum_index_1 = [...]uint8{0, 3, 6}
-)
+var _Unum_map = map[Unum]string{
+	0:   _Unum_name[0:2],
+	1:   _Unum_name[2:4],
+	2:   _Unum_name[4:6],
+	253: _Unum_name[6:9],
+	254: _Unum_name[9:12],
+}
 
-func (i Unum) String() string {
-	switch {
-	case 0 <= i && i <= 2:
-		return _Unum_name_0[_Unum_index_0[i]:_Unum_index_0[i+1]]
-	case 253 <= i && i <= 254:
-		i -= 253
-		return _Unum_name_1[_Unum_index_1[i]:_Unum_index_1[i+1]]
-	default:
-		return fmt.Sprintf("Unum(%d)", i)
-	}
+func (i Unum) GetMap() map[Unum]string {
+	return _Unum_map
 }
 `
 
@@ -230,11 +219,8 @@ var _Prime_map = map[Prime]string{
 	43: _Prime_name[32:35],
 }
 
-func (i Prime) String() string {
-	if str, ok := _Prime_map[i]; ok {
-		return str
-	}
-	return fmt.Sprintf("Prime(%d)", i)
+func (i Prime) GetMap() map[Prime]string {
+	return _Prime_map
 }
 `
 

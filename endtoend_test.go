@@ -26,16 +26,16 @@ import (
 // binary panics if the String method for X is not correct, including for error cases.
 
 func TestEndToEnd(t *testing.T) {
-	dir, err := ioutil.TempDir("", "stringer")
+	dir, err := ioutil.TempDir("", "const2map")
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer os.RemoveAll(dir)
-	// Create stringer in temporary directory.
-	stringer := filepath.Join(dir, "stringer.exe")
-	err = run("go", "build", "-o", stringer, "stringer.go")
+	// Create const2map in temporary directory.
+	const2map := filepath.Join(dir, "const2map.exe")
+	err = run("go", "build", "-o", const2map, "const2map.go")
 	if err != nil {
-		t.Fatalf("building stringer: %s", err)
+		t.Fatalf("building const2map: %s", err)
 	}
 	// Read the testdata directory.
 	fd, err := os.Open("testdata")
@@ -59,7 +59,7 @@ func TestEndToEnd(t *testing.T) {
 		}
 		// Names are known to be ASCII and long enough.
 		typeName := fmt.Sprintf("%c%s", name[0]+'A'-'a', name[1:len(name)-len(".go")])
-		stringerCompileAndRun(t, dir, stringer, typeName, name)
+		stringerCompileAndRun(t, dir, const2map, typeName, name)
 	}
 }
 
@@ -72,7 +72,7 @@ func stringerCompileAndRun(t *testing.T, dir, stringer, typeName, fileName strin
 	if err != nil {
 		t.Fatalf("copying file to temporary directory: %s", err)
 	}
-	stringSource := filepath.Join(dir, typeName+"_string.go")
+	stringSource := filepath.Join(dir, typeName+"_c2m_gen.go")
 	// Run stringer in temporary directory.
 	err = run(stringer, "-type", typeName, "-output", stringSource, source)
 	if err != nil {
