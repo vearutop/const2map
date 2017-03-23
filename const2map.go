@@ -56,7 +56,7 @@
 // where t is the lower-cased name of the first type listed. It can be overridden
 // with the -output flag.
 //
-package main // import "github.com/vearutop/go-const2map"
+package main // import "github.com/vearutop/const2map"
 
 import (
 	"bytes"
